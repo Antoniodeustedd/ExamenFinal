@@ -1,11 +1,14 @@
 package es.banco.controladores;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import es.concesionario.modelo.GestorVehiculos;
 
 /**
  * Servlet implementation class Pagar
@@ -27,6 +30,13 @@ public class Pagar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String numero= request.getParameter("numero");
+		String maximo= request.getParameter("maximo");
+		String comprobacion= request.getParameter("comprobacion");
+		String contraseña= request.getParameter("contraseña");
+		
+		Negocio gestor= new Negocio();
+		
 	}
 
 	/**
