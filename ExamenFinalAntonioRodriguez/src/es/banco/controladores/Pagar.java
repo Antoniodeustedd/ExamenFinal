@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.concesionario.modelo.GestorVehiculos;
+import es.banco.modelo.Negocio;
+
+
 
 /**
  * Servlet implementation class Pagar
@@ -36,6 +38,7 @@ public class Pagar extends HttpServlet {
 		String contraseña= request.getParameter("contraseña");
 		
 		Negocio gestor= new Negocio();
+		gestor.pagar(numero,maximo,comprobacion,contraseña);
 		
 	}
 

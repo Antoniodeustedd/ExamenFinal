@@ -5,10 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import es.banco.modelo.TargetaCredito;
 
 
-public class TargetaDAO {
+
+public class TarjetaDAO {
 	
 	private Connection cx;
 	   
@@ -33,7 +35,7 @@ public class TargetaDAO {
     
     }
 
-	public int darAlta(TargetaCredito targetaCredito) {
+	public  int darAlta(TargetaCredito targetaCredito) {
 		
 		int idRetornar=0;
 		
@@ -65,7 +67,7 @@ public class TargetaDAO {
 	int  idM=90;
 	try {
         conectar();
-		PreparedStatement ps = cx.prepareStatement("SELECT MAX(ID) AS ULTIMO FROM VEHICULO"); 
+		PreparedStatement ps = cx.prepareStatement("SELECT MAX(ID) AS ULTIMO FROM TarjetaCredito"); 
 		ResultSet consulta = ps.executeQuery(); 
 		
 		if(consulta.next()) { 
@@ -81,8 +83,61 @@ public class TargetaDAO {
 	return idM;
 
 }
+    public void ingresar(String numeroComprobacion,int dinero){
+		TargetaCredito targeta= new TargetaCredito();
+		try {
+		    conectar();
+            PreparedStatement ps = cx.prepareStatement("SELECT numero FROM VEHICULO WHERE numeroComprobacion=?");
+            ResultSet rs =ps.executeQuery();  
+            if(rs.next()) {   
+            	
+            	targeta.setNumero(rs.getString("numero"));
+            	
+               }
+			
+       
+        	 desconectar();
+        	 
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+    public void pagar(int dinero,String numeroComprobacion){
+		TargetaCredito targeta= new TargetaCredito();
+		try {
+		    conectar();
+            PreparedStatement ps = cx.prepareStatement("SELECT numero FROM VEHICULO WHERE numeroComprobacion=?");
+            ResultSet rs =ps.executeQuery();  
+            if(rs.next()) {   
+            	
+            	targeta.setNumero(rs.getString("numero"));
+            	
+               }
+			
+       
+        	 desconectar();
+        	 
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+	}
+	public void pagar(String numero, String maximo, String comprobacion,
+			String contraseña) {
+	    
+		
+	}
+    }
+
 	
-}
+	
+
+
+
+
 	
 	
 
