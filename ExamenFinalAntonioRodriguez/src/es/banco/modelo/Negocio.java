@@ -5,12 +5,12 @@ import es.banco.integracion.TarjetaDAO;
 
 public class Negocio {
 
-	private  TargetaCredito TargetaCredito= new TargetaCredito();
+	private  TarjetaCredito TargetaCredito= new TarjetaCredito();
 
 	public int darAlta(String numero, String cupoMaximo, String cupoDisponible,
 			String tipo, String numeroComprobacion, boolean contraseña) {
 		
-		TargetaCredito targeta= new TargetaCredito(numero,cupoMaximo,cupoDisponible,tipo,numeroComprobacion,contraseña);
+		TarjetaCredito targeta= new TarjetaCredito(numero,cupoMaximo,cupoDisponible,tipo,numeroComprobacion,contraseña);
 		
 		TarjetaDAO targetaNueva=new TarjetaDAO();
 		int id= TarjetaDAO.darAlta(TargetaCredito);

@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import es.banco.modelo.TargetaCredito;
+import es.banco.modelo.TarjetaCredito;
 
 
 
@@ -17,7 +17,7 @@ public class TarjetaDAO {
     private void conectar() {
       try {
            Class.forName("com.mysql.jdbc.Driver");
-           cx= DriverManager.getConnection("jdbc:mysql://localhost:3306/concesionario","root","root");
+           cx= DriverManager.getConnection("jdbc:mysql://localhost:3306/banco","root","root");
            cx.setAutoCommit(false);
        } catch (SQLException e) {
           
@@ -35,7 +35,7 @@ public class TarjetaDAO {
     
     }
 
-	public  int darAlta(TargetaCredito targetaCredito) {
+	public  int darAlta(TarjetaCredito tarjeta) {
 		
 		int idRetornar=0;
 		
@@ -43,12 +43,12 @@ public class TarjetaDAO {
 	        conectar();
             PreparedStatement ps = cx.prepareStatement("INSERT INTO VEHICULO VALUES(?,?,?,?,?,?,?)");
 		    ps.setInt(1, 0);
-		    ps.setString(2, targetaCredito.getNumero());
-		    ps.setString(3, targetaCredito.getCupoMaximo());
-		    ps.setString(4, targetaCredito.getCupoDisponible());
-		    ps.setString(5, targetaCredito.getTipo());
-		    ps.setString(6, targetaCredito.getNumeroComprobacion());
-		    ps.setString(7, targetaCredito.getContraseña());
+		    ps.setString(2, tarjeta.getNumero());
+		    ps.setString(3, tarjeta.getCupoMaximo());
+		    ps.setString(4, tarjeta.getCupoDisponible());
+		    ps.setString(5, tarjeta.getTipo());
+		    ps.setString(6, tarjeta.getNumeroComprobacion());
+		    ps.setString(7, tarjeta.getContraseña());
 	        int filasAfectadas =ps.executeUpdate();
             cx.commit();
             if(filasAfectadas>=1) { 
@@ -88,6 +88,7 @@ public class TarjetaDAO {
             
             conectar();
             PreparedStatement tarjeta = cx.prepareStatement("SELECT * FROM VEHICULO WHERE numeroComprobacion=?");
+            
             int saldo =tarjeta.setInt(1, numeroComprobacion);
             if(saldo<20){
             	
@@ -109,7 +110,7 @@ public class TarjetaDAO {
 		
 	}
     public void pagar(int dinero,String numeroComprobacion){
-		TargetaCredito targeta= new TargetaCredito();
+		TarjetaCredito tarjeta= new TarjetaCredito();
 		try {
 		    conectar();
             PreparedStatement ps = cx.prepareStatement("SELECT numero FROM VEHICULO WHERE numeroComprobacion=?");

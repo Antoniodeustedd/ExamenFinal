@@ -1,6 +1,6 @@
 package es.banco.modelo;
 
-public class TargetaCredito {
+public class TarjetaCredito {
 	String numero;
 	String cupoMaximo;
 	String cupoDisponible;
@@ -8,7 +8,7 @@ public class TargetaCredito {
 	String numeroComprobacion;
 	String contraseña;
 	String id;
-	public TargetaCredito(String numero, String cupoMaximo,
+	public TarjetaCredito(String numero, String cupoMaximo,
 			String cupoDisponible, String tipo, String numeroComprobacion,
 			String contraseña, String id) {
 		super();
@@ -20,7 +20,7 @@ public class TargetaCredito {
 		this.contraseña = contraseña;
 		this.id = id;
 	}
-	public TargetaCredito(String numero, String cupoMaximo,
+	public TarjetaCredito(String numero, String cupoMaximo,
 			String cupoDisponible, String tipo, String numeroComprobacion,
 			boolean tipo2) {
 		super();
