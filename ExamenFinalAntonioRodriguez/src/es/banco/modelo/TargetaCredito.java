@@ -22,7 +22,7 @@ public class TargetaCredito {
 	}
 	public TargetaCredito(String numero, String cupoMaximo,
 			String cupoDisponible, String tipo, String numeroComprobacion,
-			String contraseña) {
+			boolean tipo2) {
 		super();
 		this.numero = numero;
 		this.cupoMaximo = cupoMaximo;
@@ -31,9 +31,7 @@ public class TargetaCredito {
 		this.numeroComprobacion = numeroComprobacion;
 		this.contraseña = contraseña;
 	}
-	public TargetaCredito() {
-		super();
-	}
+	
 	public String getNumero() {
 		return numero;
 	}
