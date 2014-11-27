@@ -84,24 +84,28 @@ public class TarjetaDAO {
 
 }
     public void ingresar(String numeroComprobacion,int dinero){
-		TargetaCredito targeta= new TargetaCredito();
-		try {
-		    conectar();
-            PreparedStatement ps = cx.prepareStatement("SELECT numero FROM VEHICULO WHERE numeroComprobacion=?");
-            ResultSet rs =ps.executeQuery();  
-            if(rs.next()) {   
+    	try { 
+            
+            conectar();
+            PreparedStatement tarjeta = cx.prepareStatement("SELECT * FROM VEHICULO WHERE numeroComprobacion=?");
+            int saldo =tarjeta.setInt(1, numeroComprobacion);
+            if(saldo<20){
             	
-            	targeta.setNumero(rs.getString("numero"));
-            	
-               }
-			
-       
-        	 desconectar();
-        	 
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		}
+            }
+            else{
+            	PreparedStatement tarjeta = cx.prepareStatement("SELECT * FROM VEHICULO WHERE numeroComprobacion=?");
+                int saldo =tarjeta.setInt(1, numeroComprobacion);
+            	saldo=  saldo-dinero;
+            	PreparedStatement ps= cx.prepareStatement("UPDATE TARJETACREDITO SET SALDO=? WHERE ID=?");
+                ps.setString(1, cupoMaximo)
+                ps.setInt(2, id);
+                cx.commit();
+            }
+            desconectar();
+      } catch (SQLException e) {
+            e.printStackTrace();
+      }
+		
 		
 	}
     public void pagar(int dinero,String numeroComprobacion){
@@ -127,7 +131,18 @@ public class TarjetaDAO {
 	}
 	public void pagar(String numero, String maximo, String comprobacion,
 			String contraseña) {
-	    
+try { 
+            
+            conectar();
+            
+            PreparedStatement ps= cx.prepareStatement("UPDATE TARJETACREDITO SET DINERO=? WHERE ID=?");
+            ps.setString(1, cupoMaximo)
+            ps.setInt(2, id);
+            cx.commit();
+            desconectar();
+      } catch (SQLException e) {
+            e.printStackTrace();
+      }
 		
 	}
     }
