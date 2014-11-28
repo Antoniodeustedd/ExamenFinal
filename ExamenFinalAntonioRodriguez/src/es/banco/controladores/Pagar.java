@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.banco.modelo.Negocio;
+import es.banco.modelo.NegocioWS;
 
 
 
@@ -37,7 +38,7 @@ public class Pagar extends HttpServlet {
 		String comprobacion= request.getParameter("comprobacion");
 		String contraseña= request.getParameter("contraseña");
 		
-		Negocio gestor= new Negocio();
+		NegocioWS gestor= new Negocio();
 		gestor.pagar(numero,maximo,comprobacion,contraseña);
 		
 	}

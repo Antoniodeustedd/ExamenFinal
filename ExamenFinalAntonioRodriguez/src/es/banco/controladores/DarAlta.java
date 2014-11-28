@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.banco.modelo.Negocio;
-import es.concesionario.modelo.GestorVehiculos;
 
 /**
  * Servlet implementation class DarAlta
@@ -37,8 +36,20 @@ public class DarAlta extends HttpServlet {
 		String comprobacion= request.getParameter("comprobacion");
 		String contraseña= request.getParameter("contraseña");
 		boolean tipo= Boolean.parseBoolean(request.getParameter("tipo"));
+		String tipo1;
+		if (tipo==true){
+			 tipo1="Visa";
+		}
+		else{
+			tipo1="Master Card";
+			}
+		
 		Negocio gestor= new Negocio();
-		int id= gestor.darAlta(numero,maximo,disponible,comprobacion,contraseña,tipo);
+		
+		
+		
+		
+		int id= gestor.darAlta(numero,maximo,disponible,comprobacion,contraseña,tipo1);
 	
 	}
 

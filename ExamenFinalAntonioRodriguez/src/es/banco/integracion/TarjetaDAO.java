@@ -10,6 +10,7 @@ import es.banco.modelo.TarjetaCredito;
 
 
 
+
 public class TarjetaDAO {
 	
 	private Connection cx;
@@ -83,41 +84,30 @@ public class TarjetaDAO {
 	return idM;
 
 }
-    public void ingresar(String numeroComprobacion,int dinero){
+    public void ingresar(String numeroComprobacion,TarjetaCredito tarjeta){
     	try { 
             
             conectar();
-            PreparedStatement tarjeta = cx.prepareStatement("SELECT * FROM VEHICULO WHERE numeroComprobacion=?");
+            PreparedStatement t= cx.prepareStatement("UPDATE TARGETACREDITO SET CUPOMAXIMO=? WHERE NUMEROCOMPROBACION=?");
+            t.setString(1,numeroComprobacion );
+            t.setString(7, id);
             
-            int saldo =tarjeta.setInt(1, numeroComprobacion);
-            if(saldo<20){
-            	
-            }
-            else{
-            	PreparedStatement tarjeta = cx.prepareStatement("SELECT * FROM VEHICULO WHERE numeroComprobacion=?");
-                int saldo =tarjeta.setInt(1, numeroComprobacion);
-            	saldo=  saldo-dinero;
-            	PreparedStatement ps= cx.prepareStatement("UPDATE TARJETACREDITO SET SALDO=? WHERE ID=?");
-                ps.setString(1, cupoMaximo)
-                ps.setInt(2, id);
-                cx.commit();
-            }
             desconectar();
       } catch (SQLException e) {
             e.printStackTrace();
       }
 		
-		
 	}
-    public void pagar(int dinero,String numeroComprobacion){
+    public String pagar(int dinero,String numeroComprobacion){
 		TarjetaCredito tarjeta= new TarjetaCredito();
+		String mensaje;
 		try {
 		    conectar();
-            PreparedStatement ps = cx.prepareStatement("SELECT numero FROM VEHICULO WHERE numeroComprobacion=?");
+            PreparedStatement ps = cx.prepareStatement("SELECT NMERO FROM VEHICULO WHERE numeroComprobacion=?");
             ResultSet rs =ps.executeQuery();  
             if(rs.next()) {   
             	
-            	targeta.setNumero(rs.getString("numero"));
+            	tarjeta.setNumero(rs.getString("numero"));
             	
                }
 			
@@ -128,25 +118,48 @@ public class TarjetaDAO {
 			
 			e.printStackTrace();
 		}
-		
+		return mensaje;
 	}
-	public void pagar(String numero, String maximo, String comprobacion,
-			String contraseña) {
-try { 
-            
-            conectar();
-            
-            PreparedStatement ps= cx.prepareStatement("UPDATE TARJETACREDITO SET DINERO=? WHERE ID=?");
-            ps.setString(1, cupoMaximo)
-            ps.setInt(2, id);
-            cx.commit();
-            desconectar();
-      } catch (SQLException e) {
-            e.printStackTrace();
-      }
+    public TarjetaCredito consultarUno(int numero) {
 		
+		TarjetaCredito t= new TarjetaCredito();
+		try {
+		    conectar();
+            PreparedStatement ps = cx.prepareStatement("SELECT * FROM TARJETACREDITO WHERE NUMERO=?");
+            ps.setInt(1, numero);
+            ResultSet rs =ps.executeQuery();  
+            if(rs.next()) {   
+            	t.setId(rs.getString("id"));
+            	t.setNumero(rs.getString("numero"));
+            	t.setCupoMaximo(rs.getString("cupoMaximo"));
+            	t.setCupoDisponible(rs.getString("cupoMinimo"));
+            	t.setTipo(rs.getString("tipo"));
+            	t.setNumeroComprobacion(rs.getString("numeroComprobacion"));
+            	t.setContraseña(rs.getString("contrasenha"));
+                
+             }
+			
+       
+        	 desconectar();
+        	 
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return t;
 	}
-    }
+    
+
+
+
+
+}
+
+
+
+
+
+
 
 	
 	

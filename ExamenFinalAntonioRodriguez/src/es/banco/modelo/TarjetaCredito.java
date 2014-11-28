@@ -20,9 +20,10 @@ public class TarjetaCredito {
 		this.contraseña = contraseña;
 		this.id = id;
 	}
+	
 	public TarjetaCredito(String numero, String cupoMaximo,
 			String cupoDisponible, String tipo, String numeroComprobacion,
-			boolean tipo2) {
+			String contraseña ) {
 		super();
 		this.numero = numero;
 		this.cupoMaximo = cupoMaximo;
@@ -30,8 +31,15 @@ public class TarjetaCredito {
 		this.tipo = tipo;
 		this.numeroComprobacion = numeroComprobacion;
 		this.contraseña = contraseña;
+		
 	}
 	
+	
+	
+	public TarjetaCredito() {
+		super();
+	}
+
 	public String getNumero() {
 		return numero;
 	}
